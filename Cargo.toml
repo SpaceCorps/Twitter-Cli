@@ -1,6 +1,6 @@
 [package]
 name = "twitter"
-version = "0.1.0"
+version = "1.0.0"
 edition = "2024"
 rust-version = "1.89"
 description = "CLI for searching and scraping Twitter/X via Apify — YAML-first output optimized for LLM agent consumption"
