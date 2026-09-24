@@ -1,0 +1,11 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "skills": [
+    {
+      "name": "twitter-cli",
+      "description": "Search tweets, scrape profiles and threads on Twitter/X via Apify actor with YAML/JSON output.",
+      "type": "skill-md",
+      "url": "https://spacecorps.github.io/Twitter-Cli/llms.txt"
+    }
+  ]
+}

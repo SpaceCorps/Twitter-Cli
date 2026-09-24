@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About · Twitter CLI</title>
+  <meta name="description" content="About Twitter CLI: An open source native Rust command-line tool and agent interface for searching and scraping Twitter/X via Apify.">
+  <link rel="canonical" href="https://spacecorps.github.io/Twitter-Cli/about.html">
+  <meta property="og:title" content="About · Twitter CLI">
+  <meta property="og:description" content="About Twitter CLI: An open source native Rust command-line tool and agent interface for searching and scraping Twitter/X via Apify.">
+  <meta property="og:url" content="https://spacecorps.github.io/Twitter-Cli/about.html">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://spacecorps.github.io/Twitter-Cli/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="is-agentic-site-type" content="content">
+  <style>
+    body { background: #090d16; color: #f1f5f9; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1.7; padding: 40px 20px; }
+    .content-box { max-width: 800px; margin: 0 auto; background: rgba(22, 27, 46, 0.7); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 40px; }
+    h1 { font-size: 2.2rem; margin-bottom: 20px; color: #fff; }
+    h2 { font-size: 1.4rem; margin-top: 30px; margin-bottom: 12px; color: #38bdf8; }
+    p { margin-bottom: 16px; color: #94a3b8; }
+    a { color: #38bdf8; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .back { display: inline-block; margin-bottom: 24px; color: #6366f1; font-weight: 500; }
+  </style>
+</head>
+<body>
+  <div class="content-box">
+    <a href="./" class="back">&larr; Back to Twitter CLI</a>
+    <h1>About Twitter CLI</h1>
+    
+    <p>Twitter CLI is a high-performance, open-source command-line tool and agent interface designed for searching and scraping Twitter/X data using Apify's trusted actor infrastructure. Maintained under the SpaceCorps open-source engineering collective, the project provides developers and autonomous AI agents with a single, standalone binary capable of operating seamlessly across macOS, Linux, and Windows without runtime dependencies or managed interpreter overhead.</p>
+
+    <h2>Project Mission & Origins</h2>
+    <p>The original prototype CLI (<code>Twitter.Console</code>) was designed and implemented as a .NET tool by Niels Bosma to deliver YAML-first Twitter search results to LLM agents. While an effective prototype, autonomous agent environments, shell pipelines, and containerized workflows benefit immensely from static Rust binaries that cold-start in 1 to 3 milliseconds without requiring the .NET runtime. In 2026, SpaceCorps engineered a native Rust 2024 port to provide native speed, minimal memory footprint, and hardened multi-account safety.</p>
+
+    <h2>Architectural Principles</h2>
+    <p>Twitter CLI adheres to the SpaceCorps architectural tenets: zero runtime bloat, blocking HTTP over ureq without async tokio runtime overhead, deterministic multi-account safety with explicit account scoping, and cryptographic integration with native OS keystores (macOS Keychain, Windows DPAPI, and Linux Secret Service).</p>
+
+    <h2>Data Extraction & Agent Consumption</h2>
+    <p>Every search and scrape command provides dual-mode output: human-friendly YAML by default for terminal and LLM readability, and structured JSON with <code>--json</code> for jq and programmatic tool calling. Errors are emitted as structured JSON envelopes to stderr with stable exit codes and actionable remediation guidance.</p>
+  </div>
+</body>
+</html>

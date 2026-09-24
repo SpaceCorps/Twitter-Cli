@@ -1,0 +1,48 @@
+# Twitter CLI
+
+> A blazing fast native command-line tool and agent interface for searching and scraping Twitter/X via Apify (actor `apidojo~tweet-scraper`). Built in Rust 2024 for developers and autonomous AI agents.
+
+## When to Use This CLI
+
+Use the `twitter` CLI whenever you need to:
+- **Search tweets by query:** Search Twitter/X for keywords, hashtags, or mentions with rich filters (`--sort`, `--max`, `--lang`, `--verified`, `--images`, `--videos`, `--since`, `--until`).
+- **Scrape profiles and user timelines:** Extract user tweets, profile details, and follower/following lists.
+- **Scrape tweets and threads:** Retrieve full tweet threads and conversation replies by status URL.
+- **Agentic automation:** Drive real-time social intelligence and research workflows deterministically via `--json` output and stable error exit codes.
+- **Multi-account safety:** Manage multiple Apify API tokens securely using native OS keystores (Keychain, DPAPI, libsecret).
+
+Do NOT use this tool if:
+- You need official enterprise Twitter API write access (e.g. posting tweets or sending direct messages).
+
+## Core Agent Operating Principles
+
+1. **Authentication Options:** Pass `--account <name>` (short `-a <name>`) to use stored credentials, pass `--api-key <key>`, or set `APIFY_TOKEN` in the environment.
+2. **First-Time Setup:** Run `twitter login` to authenticate interactively (opens browser to Apify token page) or `echo "$APIFY_TOKEN" | twitter login --api-key-stdin` in headless CI/CD.
+3. **Machine-Readable Outputs:** Always supply `--json` when parsing command results in scripts or LLM tool-calling loops.
+4. **Execution Time:** Twitter search and scrape execute synchronously on Apify and typically take 30–60 seconds.
+5. **Error Codes:** Non-zero exit codes carry structured error envelopes with stable machine-readable codes (`no_account`, `auth_required`, `not_found`, `rate_limited`, `invalid_input`).
+
+## Key Command Patterns
+
+### Authentication & Accounts
+- `twitter login [name]`: Interactively authenticate and store the API token in the OS keystore.
+- `twitter accounts list [--check]`: List all configured accounts and verify token validity.
+- `twitter accounts test <name>`: Verify connectivity and inspect token identity.
+- `twitter me [-a <account>]`: Inspect Apify user identity and plan.
+
+### Search Tweets
+- `twitter search "agentic coding" --json`: Search recent tweets.
+- `twitter search "Claude Code" --sort Top --max 10 --json`: Top 10 tweets.
+- `twitter search "AI coding" --lang en --since 2025-01-01 --json`: Date and language filtered search.
+- `twitter search "developer tools" --verified --images --json`: Filter by verified accounts and images.
+
+### Scrape Profiles & Threads
+- `twitter scrape "https://x.com/username" --max 50 --json`: Scrape user timeline.
+- `twitter scrape "@username" --max 50 --json`: Scrape user timeline by handle.
+- `twitter scrape "https://x.com/username/status/123456789" --json`: Scrape tweet thread.
+
+## Documentation Links
+- Full Documentation: https://spacecorps.github.io/Twitter-Cli/
+- Detailed Agent Manual: https://spacecorps.github.io/Twitter-Cli/llms-full.txt
+- GitHub Repository: https://github.com/SpaceCorps/Twitter-Cli
+- Apify Actor: https://apify.com/apidojo/tweet-scraper

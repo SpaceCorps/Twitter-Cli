@@ -1,0 +1,89 @@
+# Twitter CLI - Comprehensive Agent Reference Manual
+
+> An exhaustive technical manual for autonomous agents driving the Twitter CLI (`twitter`). Covers search, profile scraping, thread extraction, multi-account keystores, and error handling via Apify.
+
+## When To Use This Tool
+- Automated research and intelligence gathering on Twitter/X discussions, sentiment, and trends.
+- Scrape public user profiles, followers, following lists, and user media.
+- Extract complete tweet reply threads and retweeters for conversation analysis.
+- Continuous monitoring and pipeline integrations requiring structured YAML/JSON outputs.
+
+## Exit Codes and Error Envelopes
+
+Every error response on stderr conforms to the standard envelope structure:
+```json
+{
+  "code": "error_code_string",
+  "error": "Human readable summary",
+  "detail": "Extended debugging context",
+  "remediation": "Exact command or action needed to fix"
+}
+```
+
+Exit code numbers match the error code contract:
+- `0`: Success / ok
+- `1`: `error` - Unclassified failure
+- `2`: `network` - Transport error, timeout, or server 500+ (retry once, then stop)
+- `3`: `auth_required` - Token missing, invalid, or expired (stop; surface remediation)
+- `4`: `not_found` - Resource or actor not found (do not retry)
+- `5`: `rate_limited` - Rate limit reached on Apify API (back off before retrying)
+- `6`: `invalid_input` - Bad command flags, missing arguments, or malformed parameters
+- `7`: `no_account` - Account not specified and no APIFY_TOKEN set
+
+## Safety & Architectural Guardrails
+
+1. **Explicit Account Selection**:
+   Passing `--account <name>` (short `-a <name>`) prevents cross-account token pollution when multiple Apify accounts are configured.
+2. **Secrets Isolation**:
+   API tokens are stored in the host operating system's hardware-backed credential vault (macOS Keychain, Windows DPAPI, Linux Secret Service).
+3. **Blocking Execution with Zero Async Bloat**:
+   Search and scrape requests trigger Apify's synchronous actor endpoint (`run-sync-get-dataset-items`), waiting for dataset items to be returned.
+
+## Commands Reference
+
+### Search
+```bash
+twitter search <QUERY> [OPTIONS]
+```
+Arguments:
+- `<QUERY>`: Search query (keywords, hashtags, or @mentions)
+
+Options:
+- `--max <N>`: Maximum tweets to return (default: 20)
+- `--sort <SORT>`: Sort order: Latest, Top (default: Latest)
+- `--lang <LANG>`: Filter by tweet language (e.g. en, sv, de, es, fr)
+- `--verified`: Only tweets from verified users
+- `--images`: Only tweets containing images
+- `--videos`: Only tweets containing videos
+- `--since <DATE>`: Tweets after this date (YYYY-MM-DD)
+- `--until <DATE>`: Tweets before this date (YYYY-MM-DD)
+- `-a, --account <NAME>`: Account name to use from keystore
+- `--api-key <KEY>`: Direct Apify token override
+- `--json`: Output as structured JSON instead of YAML
+
+### Scrape
+```bash
+twitter scrape <URL_OR_HANDLE> [OPTIONS]
+```
+Arguments:
+- `<URL_OR_HANDLE>`: Twitter/X URL (profile or status) or `@username`
+
+Options:
+- `--max <N>`: Maximum tweets to return (default: 20)
+- `--followers`: Include followers list (profile URLs only)
+- `--following`: Include following list (profile URLs only)
+- `--retweeters`: Include retweeters (tweet URLs only)
+- `-a, --account <NAME>`: Account name to use from keystore
+- `--api-key <KEY>`: Direct Apify token override
+- `--json`: Output as structured JSON instead of YAML
+
+### Accounts & Auth
+```bash
+twitter login [<NAME>] [--api-key <KEY>] [--api-key-stdin] [--no-browser] [--force] [--no-verify]
+twitter accounts add <NAME> [--api-key <KEY>] [--api-key-stdin] [--force] [--no-verify]
+twitter accounts list [--check]
+twitter accounts test <NAME>
+twitter accounts remove <NAME> [--yes]
+twitter me [-a <NAME>] [--api-key <KEY>]
+twitter agent-readme [--json]
+```

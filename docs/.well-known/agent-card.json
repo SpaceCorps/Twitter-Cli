@@ -1,0 +1,17 @@
+{
+  "name": "Twitter CLI Agent",
+  "description": "Agent interface and command-line tool for searching and scraping Twitter/X via Apify.",
+  "url": "https://spacecorps.github.io/Twitter-Cli/",
+  "version": "1.0.0",
+  "capabilities": ["search", "scrape", "profile", "tweets", "accounts"],
+  "skills": [
+    {
+      "name": "twitter-cli",
+      "url": "https://spacecorps.github.io/Twitter-Cli/llms.txt"
+    }
+  ],
+  "contact": {
+    "email": "contact@spacecorps.dev",
+    "url": "https://spacecorps.github.io/Twitter-Cli/contact.html"
+  }
+}
